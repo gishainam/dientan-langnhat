@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-  <title>
-	LangNhat</title>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,17 +10,14 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
         <style>
-        html, body, #map {
-            width: 350px;
-            height: 700px;
-            padding: 0;
-            margin: 0;
+        #map {
+            width: 1483px;
+            height: 788px;
         }
         </style>
         <title></title>
     </head>
     <body>
-       
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -35,9 +30,9 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-search.js"></script>
-        <script src="data/ranhduong_1.js"></script>
-        <script src="data/diem_dv_2.js"></script>
-        <script src="data/Vng_3.js"></script>
+        <script src="data/Ranh_2.js"></script>
+        <script src="data/Point_3.js"></script>
+        <script src="data/Zone_4.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -49,10 +44,10 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_GoogleSatellite_0');
-        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
-        var layer_GoogleSatellite_0 = L.tileLayer('http://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-            pane: 'pane_GoogleSatellite_0',
+        map.createPane('pane_Map_0');
+        map.getPane('pane_Map_0').style.zIndex = 400;
+        var layer_Map_0 = L.tileLayer('http://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_Map_0',
             opacity: 1.0,
             attribution: '',
             minZoom: 1,
@@ -60,23 +55,35 @@
             minNativeZoom: 0,
             maxNativeZoom: 22
         });
-        layer_GoogleSatellite_0;
-        map.addLayer(layer_GoogleSatellite_0);
-        function pop_ranhduong_1(feature, layer) {
+        layer_Map_0;
+        map.addLayer(layer_Map_0);
+        map.createPane('pane_Vtinh_1');
+        map.getPane('pane_Vtinh_1').style.zIndex = 401;
+        var layer_Vtinh_1 = L.tileLayer('http://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_Vtinh_1',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 22
+        });
+        layer_Vtinh_1;
+        map.addLayer(layer_Vtinh_1);
+        function pop_Ranh_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Layer</th>\
-                        <td>' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_ranhduong_1_0(feature) {
+        function style_Ranh_2_0(feature) {
             switch(String(feature.properties['Layer'])) {
                 case 'duong':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(147,210,124,1.0)',
                 dashArray: '',
@@ -89,7 +96,7 @@
                     break;
                 case 'Mepduong_hh':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(50,74,228,1.0)',
                 dashArray: '',
@@ -102,7 +109,7 @@
                     break;
                 case 'mieu':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(213,231,100,1.0)',
                 dashArray: '',
@@ -115,7 +122,7 @@
                     break;
                 case 'nhahang':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(55,26,240,1.0)',
                 dashArray: '',
@@ -128,7 +135,7 @@
                     break;
                 case 'onsen':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(104,236,227,1.0)',
                 dashArray: '',
@@ -141,7 +148,7 @@
                     break;
                 case 'RANH 2':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(219,30,42,1.0)',
                 dashArray: '',
@@ -154,7 +161,7 @@
                     break;
                 case 'typeA':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(61,127,203,1.0)',
                 dashArray: '',
@@ -167,7 +174,7 @@
                     break;
                 case 'typeB':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(206,124,234,1.0)',
                 dashArray: '',
@@ -180,7 +187,7 @@
                     break;
                 case 'typeC':
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(203,33,41,1.0)',
                 dashArray: '',
@@ -191,9 +198,9 @@
                 interactive: true,
             }
                     break;
-                case 'NULL':
+                default:
                     return {
-                pane: 'pane_ranhduong_1',
+                pane: 'pane_Ranh_2',
                 opacity: 1,
                 color: 'rgba(205,27,143,1.0)',
                 dashArray: '',
@@ -206,36 +213,35 @@
                     break;
             }
         }
-        map.createPane('pane_ranhduong_1');
-        map.getPane('pane_ranhduong_1').style.zIndex = 401;
-        map.getPane('pane_ranhduong_1').style['mix-blend-mode'] = 'normal';
-        var layer_ranhduong_1 = new L.geoJson(json_ranhduong_1, {
+        map.createPane('pane_Ranh_2');
+        map.getPane('pane_Ranh_2').style.zIndex = 402;
+        map.getPane('pane_Ranh_2').style['mix-blend-mode'] = 'normal';
+        var layer_Ranh_2 = new L.geoJson(json_Ranh_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_ranhduong_1',
-            layerName: 'layer_ranhduong_1',
-            pane: 'pane_ranhduong_1',
-            onEachFeature: pop_ranhduong_1,
-            style: style_ranhduong_1_0,
+            dataVar: 'json_Ranh_2',
+            layerName: 'layer_Ranh_2',
+            pane: 'pane_Ranh_2',
+            onEachFeature: pop_Ranh_2,
+            style: style_Ranh_2_0,
         });
-        bounds_group.addLayer(layer_ranhduong_1);
-        map.addLayer(layer_ranhduong_1);
-        function pop_diem_dv_2(feature, layer) {
+        bounds_group.addLayer(layer_Ranh_2);
+        map.addLayer(layer_Ranh_2);
+        function pop_Point_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Text</th>\
-                        <td>' + (feature.properties['Text'] !== null ? autolinker.link(feature.properties['Text'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Text'] !== null ? autolinker.link(feature.properties['Text'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_diem_dv_2_0() {
+        function style_Point_3_0() {
             return {
-                pane: 'pane_diem_dv_2',
+                pane: 'pane_Point_3',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -249,41 +255,40 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_diem_dv_2');
-        map.getPane('pane_diem_dv_2').style.zIndex = 402;
-        map.getPane('pane_diem_dv_2').style['mix-blend-mode'] = 'normal';
-        var layer_diem_dv_2 = new L.geoJson(json_diem_dv_2, {
+        map.createPane('pane_Point_3');
+        map.getPane('pane_Point_3').style.zIndex = 403;
+        map.getPane('pane_Point_3').style['mix-blend-mode'] = 'normal';
+        var layer_Point_3 = new L.geoJson(json_Point_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_diem_dv_2',
-            layerName: 'layer_diem_dv_2',
-            pane: 'pane_diem_dv_2',
-            onEachFeature: pop_diem_dv_2,
+            dataVar: 'json_Point_3',
+            layerName: 'layer_Point_3',
+            pane: 'pane_Point_3',
+            onEachFeature: pop_Point_3,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_diem_dv_2_0(feature));
+                return L.circleMarker(latlng, style_Point_3_0(feature));
             },
         });
-        bounds_group.addLayer(layer_diem_dv_2);
-        map.addLayer(layer_diem_dv_2);
-        function pop_Vng_3(feature, layer) {
+        bounds_group.addLayer(layer_Point_3);
+        map.addLayer(layer_Point_3);
+        function pop_Zone_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Layer</th>\
-                        <td>' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Vng_3_0(feature) {
+        function style_Zone_4_0(feature) {
             switch(String(feature.properties['Layer'])) {
                 case 'Mepduong_hh':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -298,7 +303,7 @@
                     break;
                 case 'mieu':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -313,7 +318,7 @@
                     break;
                 case 'nhahang':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -328,7 +333,7 @@
                     break;
                 case 'onsen':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -343,7 +348,7 @@
                     break;
                 case 'RANH 2':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -358,7 +363,7 @@
                     break;
                 case 'typeA':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -373,7 +378,7 @@
                     break;
                 case 'typeB':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -388,7 +393,7 @@
                     break;
                 case 'typeC':
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -401,9 +406,9 @@
                 interactive: true,
             }
                     break;
-                case 'NULL':
+                default:
                     return {
-                pane: 'pane_Vng_3',
+                pane: 'pane_Zone_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -418,30 +423,30 @@
                     break;
             }
         }
-        map.createPane('pane_Vng_3');
-        map.getPane('pane_Vng_3').style.zIndex = 403;
-        map.getPane('pane_Vng_3').style['mix-blend-mode'] = 'normal';
-        var layer_Vng_3 = new L.geoJson(json_Vng_3, {
+        map.createPane('pane_Zone_4');
+        map.getPane('pane_Zone_4').style.zIndex = 404;
+        map.getPane('pane_Zone_4').style['mix-blend-mode'] = 'normal';
+        var layer_Zone_4 = new L.geoJson(json_Zone_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Vng_3',
-            layerName: 'layer_Vng_3',
-            pane: 'pane_Vng_3',
-            onEachFeature: pop_Vng_3,
-            style: style_Vng_3_0,
+            dataVar: 'json_Zone_4',
+            layerName: 'layer_Zone_4',
+            pane: 'pane_Zone_4',
+            onEachFeature: pop_Zone_4,
+            style: style_Zone_4_0,
         });
-        bounds_group.addLayer(layer_Vng_3);
-        map.addLayer(layer_Vng_3);
+        bounds_group.addLayer(layer_Zone_4);
+        map.addLayer(layer_Zone_4);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Vùng<br /><table><tr><td style="text-align: center;"><img src="legend/Vng_3_Mepduonghh0.png" /></td><td>Duong</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_mieu1.png" /></td><td>Mieu</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_nhahang2.png" /></td><td>House</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_onsen3.png" /></td><td>OS</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_RANH24.png" /></td><td>RANH</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeA5.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeB6.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeC7.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_8.png" /></td><td></td></tr></table>': layer_Vng_3,'<img src="legend/diem_dv_2.png" /> diem_dv': layer_diem_dv_2,'ranh&duong<br /><table><tr><td style="text-align: center;"><img src="legend/ranhduong_1_duong0.png" /></td><td>duong</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_Mepduonghh1.png" /></td><td>Mep</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_mieu2.png" /></td><td>mieu</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_nhahang3.png" /></td><td>nhahang</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_onsen4.png" /></td><td>onsen</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_RANH25.png" /></td><td>RANH 2</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeA6.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeB7.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeC8.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_9.png" /></td><td></td></tr></table>': layer_ranhduong_1,"Vệ tinh": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Zone<br /><table><tr><td style="text-align: center;"><img src="legend/Zone_4_Mepduonghh0.png" /></td><td>Mepduong_hh</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_mieu1.png" /></td><td>mieu</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_nhahang2.png" /></td><td>nhahang</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_onsen3.png" /></td><td>onsen</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_RANH24.png" /></td><td>RANH 2</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_typeA5.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_typeB6.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_typeC7.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_4_8.png" /></td><td></td></tr></table>': layer_Zone_4,'<img src="legend/Point_3.png" /> Point': layer_Point_3,'Ranh<br /><table><tr><td style="text-align: center;"><img src="legend/Ranh_2_duong0.png" /></td><td>duong</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_Mepduonghh1.png" /></td><td>Mepduong_hh</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_mieu2.png" /></td><td>mieu</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_nhahang3.png" /></td><td>nhahang</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_onsen4.png" /></td><td>onsen</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_RANH25.png" /></td><td>RANH 2</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_typeA6.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_typeB7.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_typeC8.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/Ranh_2_9.png" /></td><td></td></tr></table>': layer_Ranh_2,"Vệ tinh": layer_Vtinh_1,"Map": layer_Map_0,}).addTo(map);
         setBounds();
         var i = 0;
-        layer_diem_dv_2.eachLayer(function(layer) {
+        layer_Point_3.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Text'] !== null?String('<div style="color: #bf3232; font-size: 7pt; font-weight: bold; font-family: \'.VnArial\', sans-serif;">' + layer.feature.properties['Text']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_diem_dv_2'});
+            layer.bindTooltip((layer.feature.properties['Text'] !== null?String('<div style="color: #bf3232; font-size: 7pt; font-weight: bold; font-family: \'.VnArial\', sans-serif;">' + layer.feature.properties['Text']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Point_3'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -449,21 +454,21 @@
               i++;
         });
         map.addControl(new L.Control.Search({
-            layer: layer_diem_dv_2,
+            layer: layer_Point_3,
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'Text'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
-        resetLabels([layer_diem_dv_2]);
+        resetLabels([layer_Point_3]);
         map.on("zoomend", function(){
-            resetLabels([layer_diem_dv_2]);
+            resetLabels([layer_Point_3]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_diem_dv_2]);
+            resetLabels([layer_Point_3]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_diem_dv_2]);
+            resetLabels([layer_Point_3]);
         });
         </script>
     </body>
