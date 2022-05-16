@@ -6,8 +6,9 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="mapbox/mapbox-gl.css">
-        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -20,82 +21,30 @@
     </head>
     <body>
         <div id="map">
-            <nav id="menu"></nav>
-              <div id="distance" class="distance-container"></div>
         </div>
         <script src="js/qgis2web_expressions.js"></script>
-        <script src="./mapbox/mapbox-gl.js"></script>
-        <script src="data/1_1.js"></script>
-<script src="./mapbox/style.js"></script>
-<script src="./js/Autolinker.min.js"></script>
-<script>
-var map = new mapboxgl.Map({
- container: 'map',
- style: styleJSON,
- center: [108.9773509819706,12.228097284726392],
- zoom: 17,
- bearing: 360.0,
- attributionControl: false
-});
-map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-map.addControl(new mapboxgl.AttributionControl({
-    customAttribution: '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://github.com/mapbox/mapbox-gl-js" target="_blank">Mapbox GL JS</a> &middot; <a href="https://qgis.org" target="_blank">QGIS</a>',
-    compact: false
-}));
-var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-
-map.on('click', 'lyr_1_1_0', function (e) {
-    var description = '<table>\
-                    <tr>\
-                        <th scope="row">Layer</th>\
-                        <td>' + (e.features[0].properties['Layer'] !== null ? autolinker.link(e.features[0].properties['Layer'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (e.features[0].properties['PaperSpace'] !== null ? autolinker.link(e.features[0].properties['PaperSpace'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (e.features[0].properties['SubClasses'] !== null ? autolinker.link(e.features[0].properties['SubClasses'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (e.features[0].properties['Linetype'] !== null ? autolinker.link(e.features[0].properties['Linetype'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (e.features[0].properties['EntityHand'] !== null ? autolinker.link(e.features[0].properties['EntityHand'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (e.features[0].properties['Text'] !== null ? autolinker.link(e.features[0].properties['Text'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>'
-
-    new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(description)
-        .addTo(map);
-});
-
-// Change the cursor to a pointer when the mouse is over the places layer.
-map.on('mouseenter', 'lyr_1_1_0', function () {
-    map.getCanvas().style.cursor = 'pointer';
-});
-
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'lyr_1_1_0', function () {
-    map.getCanvas().style.cursor = '';
-});
-</script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/ranhduong_1.js"></script>
+        <script src="data/diem_dv_2.js"></script>
+        <script src="data/Vng_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        })
+        }).fitBounds([[12.227334732706712,108.97594481608841],[12.229167349160551,108.97944272066849]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
         }
         map.createPane('pane_GoogleSatellite_0');
         map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
@@ -110,35 +59,23 @@ map.on('mouseleave', 'lyr_1_1_0', function () {
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        function pop_1_1(feature, layer) {
+        function pop_ranhduong_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['PaperSpace'] !== null ? autolinker.link(feature.properties['PaperSpace'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['SubClasses'] !== null ? autolinker.link(feature.properties['SubClasses'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Linetype'] !== null ? autolinker.link(feature.properties['Linetype'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['EntityHand'] !== null ? autolinker.link(feature.properties['EntityHand'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Text'] !== null ? autolinker.link(feature.properties['Text'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Layer</th>\
+                        <td>' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_1_1_0() {
-            return {
-                pane: 'pane_1_1',
+        function style_ranhduong_1_0(feature) {
+            switch(String(feature.properties['Layer'])) {
+                case 'duong':
+                    return {
+                pane: 'pane_ranhduong_1',
                 opacity: 1,
-                color: 'rgba(125,139,143,1.0)',
+                color: 'rgba(147,210,124,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -146,24 +83,385 @@ map.on('mouseleave', 'lyr_1_1_0', function () {
                 fillOpacity: 0,
                 interactive: true,
             }
+                    break;
+                case 'Mepduong_hh':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(50,74,228,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'mieu':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(213,231,100,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'nhahang':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(55,26,240,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'onsen':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(104,236,227,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'RANH 2':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'typeA':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(61,127,203,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'typeB':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(206,124,234,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'typeC':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(203,33,41,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'NULL':
+                    return {
+                pane: 'pane_ranhduong_1',
+                opacity: 1,
+                color: 'rgba(205,27,143,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
         }
-        map.createPane('pane_1_1');
-        map.getPane('pane_1_1').style.zIndex = 401;
-        map.getPane('pane_1_1').style['mix-blend-mode'] = 'normal';
-        var layer_1_1 = new L.geoJson(json_1_1, {
+        map.createPane('pane_ranhduong_1');
+        map.getPane('pane_ranhduong_1').style.zIndex = 401;
+        map.getPane('pane_ranhduong_1').style['mix-blend-mode'] = 'normal';
+        var layer_ranhduong_1 = new L.geoJson(json_ranhduong_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_1_1',
-            layerName: 'layer_1_1',
-            pane: 'pane_1_1',
-            onEachFeature: pop_1_1,
-            style: style_1_1_0,
+            dataVar: 'json_ranhduong_1',
+            layerName: 'layer_ranhduong_1',
+            pane: 'pane_ranhduong_1',
+            onEachFeature: pop_ranhduong_1,
+            style: style_ranhduong_1_0,
         });
-        bounds_group.addLayer(layer_1_1);
-        map.addLayer(layer_1_1);
+        bounds_group.addLayer(layer_ranhduong_1);
+        map.addLayer(layer_ranhduong_1);
+        function pop_diem_dv_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Text</th>\
+                        <td>' + (feature.properties['Text'] !== null ? autolinker.link(feature.properties['Text'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_diem_dv_2_0() {
+            return {
+                pane: 'pane_diem_dv_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_diem_dv_2');
+        map.getPane('pane_diem_dv_2').style.zIndex = 402;
+        map.getPane('pane_diem_dv_2').style['mix-blend-mode'] = 'normal';
+        var layer_diem_dv_2 = new L.geoJson(json_diem_dv_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_diem_dv_2',
+            layerName: 'layer_diem_dv_2',
+            pane: 'pane_diem_dv_2',
+            onEachFeature: pop_diem_dv_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_diem_dv_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_diem_dv_2);
+        map.addLayer(layer_diem_dv_2);
+        function pop_Vng_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Layer</th>\
+                        <td>' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Vng_3_0(feature) {
+            switch(String(feature.properties['Layer'])) {
+                case 'Mepduong_hh':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,134,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'mieu':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,198,36,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'nhahang':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,115,167,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'onsen':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(187,239,135,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'RANH 2':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,74,240,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'typeA':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(111,206,192,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'typeB':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(132,228,150,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'typeC':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,53,16,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'NULL':
+                    return {
+                pane: 'pane_Vng_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(22,114,213,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Vng_3');
+        map.getPane('pane_Vng_3').style.zIndex = 403;
+        map.getPane('pane_Vng_3').style['mix-blend-mode'] = 'normal';
+        var layer_Vng_3 = new L.geoJson(json_Vng_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Vng_3',
+            layerName: 'layer_Vng_3',
+            pane: 'pane_Vng_3',
+            onEachFeature: pop_Vng_3,
+            style: style_Vng_3_0,
+        });
+        bounds_group.addLayer(layer_Vng_3);
+        map.addLayer(layer_Vng_3);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/1_1.png" /> 1': layer_1_1,"vi tri": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Vùng<br /><table><tr><td style="text-align: center;"><img src="legend/Vng_3_Mepduonghh0.png" /></td><td>Mepduong_hh</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_mieu1.png" /></td><td>mieu</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_nhahang2.png" /></td><td>nhahang</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_onsen3.png" /></td><td>onsen</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_RANH24.png" /></td><td>RANH 2</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeA5.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeB6.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_typeC7.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/Vng_3_8.png" /></td><td></td></tr></table>': layer_Vng_3,'<img src="legend/diem_dv_2.png" /> diem_dv': layer_diem_dv_2,'ranh&duong<br /><table><tr><td style="text-align: center;"><img src="legend/ranhduong_1_duong0.png" /></td><td>duong</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_Mepduonghh1.png" /></td><td>Mepduong_hh</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_mieu2.png" /></td><td>mieu</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_nhahang3.png" /></td><td>nhahang</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_onsen4.png" /></td><td>onsen</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_RANH25.png" /></td><td>RANH 2</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeA6.png" /></td><td>typeA</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeB7.png" /></td><td>typeB</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_typeC8.png" /></td><td>typeC</td></tr><tr><td style="text-align: center;"><img src="legend/ranhduong_1_9.png" /></td><td></td></tr></table>': layer_ranhduong_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
         setBounds();
+        var i = 0;
+        layer_diem_dv_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Text'] !== null?String('<div style="color: #bf3232; font-size: 7pt; font-weight: bold; font-family: \'.VnArial\', sans-serif;">' + layer.feature.properties['Text']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_diem_dv_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_diem_dv_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Text'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_diem_dv_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_diem_dv_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_diem_dv_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_diem_dv_2]);
+        });
         </script>
     </body>
 </html>
